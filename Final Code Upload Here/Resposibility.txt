@@ -1,0 +1,24 @@
+Chew: Loggin and Getting User Details & Do flow chart
+Yeezon: TaxReliefs  & Do flow chart
+Balqis: Choice Income  & Do flow chart
+
+Deadline 20 Jan 2025
+
+Maha: Print output receipt & Compile main.cpp & welcome.cpp
+
+Deadline 22 Jan 2025
+
+Report:
+Part 1 (Intro and stuff) - Nabila
+Part 2 (Methodology and Flowchart)- All coders
+Part 3 (Testing Procedure)- Chew
+Part 4 (Explain your code)- All coders
+Part 5 (Conclusion) - Nabila
+Part 6 (References)- Nabila (Compiled from coders)
+Appendix - Maha
+
+Test Data - Chew -> give Bo Tao*
+Video -  Bo Tao screen record video of program function using data provided by Chew
+
+
+
