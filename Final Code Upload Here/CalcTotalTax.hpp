@@ -2,7 +2,7 @@
 #ifndef CALCTOTALTAX_HPP
 #define CALCTOTALTAX_HPP
 
-void FinalTax();
+void displayFinalTax();
 void printDetailsToFile(const string& filename);
 
 // Class for taxpayer details

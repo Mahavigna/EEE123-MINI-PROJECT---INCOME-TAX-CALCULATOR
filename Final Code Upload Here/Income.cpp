@@ -23,7 +23,6 @@ void printLine(char ch, int length) {
 }
 
 
-
 double CalcTotalIncome(double a,  double b,  double c)
     {
     double total = income.annualSalary(income.salary) + income.businessIncome + income.dividend;
@@ -79,6 +78,7 @@ double getValidAmount() {
 
 //Handle user input of string instead of integers
 string getValidString(const string &prompt) {
+    cin.ignore();
     string input;
     while (true) {
         cout << prompt;
@@ -111,6 +111,7 @@ string capitalize(const string& letter) {
     return result; // Return the capitalized string
 }
 
+//Allow user to edit income information
 void editInformation(IncomeDetails &income, bool salarySelected, bool businessSelected, bool dividendSelected) {
     bool editSalary = false;
     bool editBusiness = false;
@@ -171,6 +172,7 @@ void editInformation(IncomeDetails &income, bool salarySelected, bool businessSe
     }
 }
 
+//Allow user to select and input income information
 void incomeSelection(IncomeDetails &income) {
     bool salarySelected = false;
     bool businessSelected = false;

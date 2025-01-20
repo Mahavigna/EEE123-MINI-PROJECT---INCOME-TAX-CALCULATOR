@@ -255,7 +255,7 @@ void mainloop(){
 
     selectionexpenses(); // Calculates User tax relief based on Yes or No questions (TaxRelief.cpp)
 
-    FinalTax(); // Calculate Total Tax after rebates
+    displayFinalTax(); // Calculate Total Tax after rebates
 
     printDetailsToFile(TaxPayer.name); // Prints details of user or Tax Payer to a text file for easy display
 

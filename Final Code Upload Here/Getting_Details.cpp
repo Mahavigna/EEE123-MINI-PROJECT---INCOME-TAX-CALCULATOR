@@ -43,6 +43,7 @@ void GettingDetails(User& TaxPayer, const string& initialEmail) {
     cout << "Data can be changed after finishing filling the personal details, allowing the user to update their information if necessary\n";
 
     // Getting User's Name
+    cin.ignore();
     TaxPayer.name = getValidString("Full Name: ");
 
     // Getting and Validating User IC No.
@@ -78,9 +79,6 @@ void GettingDetails(User& TaxPayer, const string& initialEmail) {
         getline(cin, TaxPayer.email);
         if (!regex_match(TaxPayer.email, PatternValidator::emailPattern)) {
             cout << "Invalid Email. Please Try Again.\n";
-        } else if (TaxPayer.email != initialEmail) {
-            cout << "The entered email does not match the initial email (" << initialEmail << ").\n";
-            cout << "Please re-enter the same email or confirm this is correct.\n";
         }
     } while (!regex_match(TaxPayer.email, PatternValidator::emailPattern) || TaxPayer.email != initialEmail);
 
@@ -90,7 +88,7 @@ void GettingDetails(User& TaxPayer, const string& initialEmail) {
 // Function to update user details
 void updateDetails(User& user) {
     printLine('=', 83);
-    cout << setw((83 - 300) / 2) << " " << "<Update Your Details>\n";
+    cout << setw((83 - 30) / 2) << " " << "<Update Your Details>\n";
     printLine('=', 83);
     cout << "Select the field you want to update:\n";
     cout << "1. Full name\n";
@@ -103,10 +101,20 @@ void updateDetails(User& user) {
     int choice;
     string newValue;
 
+   
     do {
         cout << "\nEnter your choice: ";
         cin >> choice;
-        cin.ignore(); // Ignore trailing newline from cin
+
+        // Input validation for choice
+        if (cin.fail()) {
+            cin.clear(); // Clear the error flag
+            cin.ignore(256, '\n'); // Discard invalid input
+            cout << "Invalid input. Please enter a single digit!\n";
+            continue; // Skip the rest of the loop and prompt again
+        }
+
+        cin.ignore(); // Ignore the newline character left by cin >> choice
 
         switch (choice) {
             case 1:
@@ -126,16 +134,16 @@ void updateDetails(User& user) {
                 TaxPayer.ic = newValue;
                 break;
 
-            case 3: 
-            do {
-                cout << "Tax Identification Number (TIN): ";
-                getline(cin, newValue);
-                if (!regex_match(newValue, PatternValidator::TINPattern)) {
-                    cout << "Invalid TIN. Please Try Again.\n";
-                }
-            } while (!regex_match(user.TIN, PatternValidator::TINPattern));
-            TaxPayer.ic = newValue;
-            break;
+            case 3:
+                do {
+                    cout << "Tax Identification Number (TIN): ";
+                    getline(cin, newValue);
+                    if (!regex_match(newValue, PatternValidator::TINPattern)) {
+                        cout << "Invalid TIN. Please Try Again.\n";
+                    }
+                } while (!regex_match(newValue, PatternValidator::TINPattern));
+                TaxPayer.TIN = newValue; // Corrected assignment
+                break;
 
             case 4:
                 do {
@@ -145,7 +153,7 @@ void updateDetails(User& user) {
                         cout << "Invalid Phone No. Please Try Again.\n";
                     }
                 } while (!regex_match(newValue, PatternValidator::phonePattern));
-                user.phoneNo = newValue;
+                TaxPayer.phoneNo = newValue;
                 break;
 
             case 5:

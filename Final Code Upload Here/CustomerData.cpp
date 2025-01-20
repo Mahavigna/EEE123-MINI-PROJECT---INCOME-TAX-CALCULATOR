@@ -5,7 +5,7 @@
     Github Username : Mahavigna
     Matric No.      : 23301624
 
-Program Function: Prints User / Tax Payers data from all the sections into one reciept for easy filling and reference.
+Program Function: Prints User / Tax Payers data from all the sections into one receipt for easy filling and reference.
 */
 
 #include "main.hpp"
@@ -23,12 +23,18 @@ void PrintFileLine(char symbol, int length, ofstream& file) {
     file << endl;
 }
 
-
 // Function to convert a string to uppercase
 string toUpperCase(const string& text) {
     string result = text;
     transform(result.begin(), result.end(), result.begin(), ::toupper);
     return result;
+}
+
+// Function to format section titles
+void formatSectionTitle(const string& title, int width, ofstream& file) {
+    PrintFileLine('=', width, file);
+    file << centerText(toUpperCase(title), width) << endl;
+    PrintFileLine('=', width, file);
 }
 
 // Function to print details to a file
@@ -43,9 +49,7 @@ void printDetailsToFile(const string& filename) {
     int tableWidth = 83; // Width of the relief table
 
     // Tax Payer Info (Getting_Details.cpp)
-    PrintFileLine('=', tableWidth, outputFile);
-    outputFile << centerText(toUpperCase("Personal Details"), tableWidth) << endl;
-    PrintFileLine('=', tableWidth, outputFile);
+    formatSectionTitle("Personal Details", tableWidth, outputFile);
     outputFile << "Date:               " << getCurrentDate() << endl;
     outputFile << "Name:               " << TaxPayer.name << endl;
     outputFile << "IC No.:             " << TaxPayer.ic << endl;
@@ -56,24 +60,22 @@ void printDetailsToFile(const string& filename) {
 
     // Tax Payer Income sources (Income.cpp)
     outputFile << endl;
-    PrintFileLine('=', tableWidth, outputFile);
-    outputFile << centerText(toUpperCase("Income Sources Summary"), tableWidth) << endl;
-    PrintFileLine('=', tableWidth, outputFile);
+    formatSectionTitle("Income Sources Summary", tableWidth, outputFile);
 
     outputFile << left << setw(20) << "Income" << setw(40) << "Description" << right << setw(15) << "Amount (RM)" << endl;
     PrintFileLine('-', tableWidth, outputFile);
 
     if (income.salary > 0)
-        outputFile << left << setw(20) << "Annual Salary" \
-                   << setw(40) << ("From " + income.companyName + " as " + income.position) \
+        outputFile << left << setw(20) << "Annual Salary"
+                   << setw(40) << ("From " + income.companyName + " as " + income.position)
                    << right << setw(15) << fixed << setprecision(2) << income.annualSalary(income.salary) << endl;
     if (income.businessIncome > 0)
-        outputFile << left << setw(20) << "Business" \
-                   << setw(40) << ("From " + income.businessType) \
+        outputFile << left << setw(20) << "Business"
+                   << setw(40) << ("From " + income.businessType)
                    << right << setw(15) << fixed << setprecision(2) << income.businessIncome << endl;
     if (income.dividend > 0)
-        outputFile << left << setw(20) << "Dividend" \
-                   << setw(40) << "From investment" \
+        outputFile << left << setw(20) << "Dividend"
+                   << setw(40) << "From investment"
                    << right << setw(15) << fixed << setprecision(2) << income.dividend << endl;
 
     PrintFileLine('-', tableWidth, outputFile);
@@ -94,9 +96,7 @@ void printDetailsToFile(const string& filename) {
 
     // Rebate Section Header
     outputFile << endl;
-    PrintFileLine('=', tableWidth, outputFile);
-    outputFile << centerText(toUpperCase("Tax Rebate and Final Tax"), tableWidth) << endl;
-    PrintFileLine('=', tableWidth, outputFile);
+    formatSectionTitle("Tax Rebate and Final Tax", tableWidth, outputFile);
 
     // Print Tax Calculated and Rebate
     outputFile << fixed << setprecision(2); // Format output to 2 decimal places
@@ -105,5 +105,5 @@ void printDetailsToFile(const string& filename) {
     outputFile << "\nYour Final Tax payable after Rebate is: RM " << user.finaltax << endl;
 
     outputFile.close(); // Close the file
-    cout << "\nDetails have been written to " << filename + ".txt" << " successfully!\n";
+    cout << "\nDetails have been written to " << TaxPayer.name + ".txt" << " successfully!\n";
 }
