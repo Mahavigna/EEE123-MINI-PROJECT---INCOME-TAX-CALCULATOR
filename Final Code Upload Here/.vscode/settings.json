@@ -52,6 +52,10 @@
         "streambuf": "cpp",
         "text_encoding": "cpp",
         "typeinfo": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "regex": "cpp",
+        "bitset": "cpp",
+        "cstring": "cpp",
+        "unordered_set": "cpp"
     }
 }

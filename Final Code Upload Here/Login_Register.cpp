@@ -12,21 +12,20 @@
 Program Function: Login system to ensure only registered user can use the application
 */
 
+//Header Files containing relevant functions and libraries
 #include "main.hpp"
 #include "Income.hpp"
 #include "TaxRelief.hpp"
 #include "Login_Register.hpp"
 #include "CalcTotalTax.hpp"
 #include "CustomerData.hpp"
+#include "FormatText.hpp"
 
-bool hasSpaces(const string& str) {
-    return str.find(' ') != string::npos;
-}
 
+//Runs login program and executes Calculator
 void MainMenu() {
-    int choice;
+    char choice;
     int linewidth = 83;
-
 
     printLine('=', linewidth);
     cout << "\033[1;36m"; // Cyan color
@@ -42,43 +41,50 @@ void MainMenu() {
     cout << centerText("Please answer honestly as the program relies on your input.", 80) << endl;
     printLine('=', linewidth);
 
-
-
     while (true) {
-    // Section separator
-    cout <<"\n";
-    printLine('=', linewidth);
-    cout << setw((linewidth - 40) / 2) << " " << "< Part 0. Login for APEX Tax Calculator >" << endl;
-    printLine('=', linewidth);
-        cout << "1. Register\n2. Login\n3. Exit\n";
-        cout << "Enter your choice (1, 2, or 3): ";
-        cin >> choice;
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        // Section separator
+        cout << "\n";
+        printLine('=', linewidth);
+        cout << setw((linewidth - 40) / 2) << " " << "< Part 0. Login for APEX Tax Calculator >" << endl;
+        printLine('=', linewidth);
+        cout << "A. Register\nB. Login\nC. Exit\n";
+        cout << "Enter your choice (A, B, or C): ";
 
-        if (choice == 1) {
-            registerUser();
-        } else if (choice == 2) {
-            if (loginUser()) {
-                cout << "Please press enter to continue..." << endl;
-                cin.ignore();
-                mainloop();
-                break;
+        // Read the entire input as a string
+        string input;
+        getline(cin, input);
+
+        // Check if the input is exactly one character
+        if (input.length() == 1) {
+            choice = toupper(input[0]); // Convert to uppercase for case-insensitive comparison
+
+            // Validate the choice
+            if (choice == 'A' || choice == 'B' || choice == 'C') {
+                if (choice == 'A') {
+                    registerUser();
+                } else if (choice == 'B') {
+                    if (loginUser()) {
+                        mainloop();
+                        break;
+                    } else {
+                        cout << "Login failed. Please try again.\n";
+                    }
+                } else if (choice == 'C') {
+                    cout << "Thanks for using the calculator. Goodbye!\n";
+                    break;
+                }
             } else {
-                cout << "Login failed. Please try again.\n";
+                // Handle invalid character input
+                cout << "Invalid choice. Please enter A, B, or C.\n";
             }
-        } else if (choice == 3) {
-            cout << "Thanks for using the calculator. Goodbye!\n";
-            break;
-        } else if (cin.fail()) {
-            cout << "Invalid choice. Please enter 1, 2, or 3.\n";
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
         } else {
-            cout << "Invalid choice. Please enter 1, 2, or 3.\n";
+            // Handle invalid input (more than one character)
+            cout << "Invalid input. Please enter only one character (A, B, or C).\n";
         }
     }
 }
 
+//Register User if not existing user
 void registerUser() {
     string username, password, fileUsername, filePassword;
     ifstream inputfile;
@@ -147,6 +153,7 @@ void registerUser() {
     }
 }
 
+//Login User
 bool loginUser() {
     string username, password, fileUsername, filePassword;
     ifstream inputfile;
@@ -204,13 +211,6 @@ bool loginUser() {
 }
 
 
-string centerText(const string& text, int width) {
-    int padding = (width - text.length()) / 2; // Calculate padding on each side
-    if (padding < 0) padding = 0; // Ensure padding is not negative
-    return string(padding, ' ') + text + string(padding, ' ');
-}
-
-
 //Function Prints Welcome Message for User Logging In 
 void WelcomeMsg(const string& name) {
     time_t now = time(0);
@@ -242,7 +242,7 @@ void WelcomeMsg(const string& name) {
     printLine('=', tableWidth);
 }
 
-
+//Loops the functions for tax Calculation
 void mainloop(){
 
     char calculateAgain;
@@ -260,7 +260,7 @@ void mainloop(){
     printDetailsToFile(TaxPayer.name); // Prints details of user or Tax Payer to a text file for easy display
 
         // Ask if the user wants to calculate again
-        cout << "\nWould you like to calculate again? (Yes = Y / Enter any key for No...): ";
+        cout << "\nWould you like to calculate again? (Yes = Y | Press Ctrl and C keys to exit...): ";
         cin >> calculateAgain;
         calculateAgain = toupper(calculateAgain);
         cin.ignore(numeric_limits<streamsize>::max(), '\n');

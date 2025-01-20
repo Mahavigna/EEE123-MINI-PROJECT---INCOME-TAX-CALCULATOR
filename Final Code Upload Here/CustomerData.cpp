@@ -8,34 +8,17 @@
 Program Function: Prints User / Tax Payers data from all the sections into one receipt for easy filling and reference.
 */
 
+//Header Files containing relevant functions and libraries
 #include "main.hpp"
 #include "Income.hpp"
 #include "TaxRelief.hpp"
 #include "Login_Register.hpp"
 #include "CalcTotalTax.hpp"
 #include "Getting_Details.hpp"
+#include "FormatText.hpp"
 
-// Function to print a line of a specific symbol
-void PrintFileLine(char symbol, int length, ofstream& file) {
-    for (int i = 0; i < length; i++) {
-        file << symbol;
-    }
-    file << endl;
-}
 
-// Function to convert a string to uppercase
-string toUpperCase(const string& text) {
-    string result = text;
-    transform(result.begin(), result.end(), result.begin(), ::toupper);
-    return result;
-}
 
-// Function to format section titles
-void formatSectionTitle(const string& title, int width, ofstream& file) {
-    PrintFileLine('=', width, file);
-    file << centerText(toUpperCase(title), width) << endl;
-    PrintFileLine('=', width, file);
-}
 
 // Function to print details to a file
 void printDetailsToFile(const string& filename) {
@@ -56,6 +39,7 @@ void printDetailsToFile(const string& filename) {
     outputFile << "Phone No.:          " << TaxPayer.phoneNo << endl;
     outputFile << "Email:              " << TaxPayer.email << endl;
     outputFile << "TIN:                " << TaxPayer.TIN << endl;
+    outputFile << "Religion:           " << user.religion << endl;
     PrintFileLine('=', tableWidth, outputFile);
 
     // Tax Payer Income sources (Income.cpp)
@@ -98,12 +82,14 @@ void printDetailsToFile(const string& filename) {
     outputFile << endl;
     formatSectionTitle("Tax Rebate and Final Tax", tableWidth, outputFile);
 
-    // Print Tax Calculated and Rebate
     outputFile << fixed << setprecision(2); // Format output to 2 decimal places
-    outputFile << "\nYour Income Tax before Rebate is RM " << user.tax << endl;
-    outputFile << "\nYour total Tax Rebate is RM " << user.rebate << endl;
-    outputFile << "\nYour Final Tax payable after Rebate is: RM " << user.finaltax << endl;
+    outputFile << setw(50) << left << "Income Tax before Rebate" << setw(30) << right << user.tax << endl;
+    PrintFileLine('-', tableWidth, outputFile);
+    outputFile << setw(50) << left << "Total Tax Rebate" << setw(30) << right << user.rebate << endl;
+    PrintFileLine('-', tableWidth, outputFile);
+    outputFile << setw(50) << left << "Final Tax Payable" << setw(30) << right << user.finaltax << endl;
+    PrintFileLine('=', tableWidth, outputFile);
 
     outputFile.close(); // Close the file
-    cout << "\nDetails have been written to " << TaxPayer.name + ".txt" << " successfully!\n";
+    cout << "\nTax calculation summary written to " << filename << ".txt successfully!" << endl;
 }

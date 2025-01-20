@@ -14,22 +14,18 @@ Program Function: Gather and calculate the sources of income of the Tax Payer.
 */
 
 #include "Income.hpp"
+#include "FormatText.hpp"
+
 IncomeDetails income;
 
-void printLine(char ch, int length) {
-    for (int i = 0; i < length; ++i) 
-    cout << ch;
-    cout << endl;
-}
-
-
+//Calculate Total income from sources
 double CalcTotalIncome(double a,  double b,  double c)
     {
     double total = income.annualSalary(income.salary) + income.businessIncome + income.dividend;
     return total;
     }
 
-
+//Pint Income Summary
 void printBill(IncomeDetails &income) { 
     int lineWidth = 80;
 
@@ -57,200 +53,172 @@ void printBill(IncomeDetails &income) {
     printLine('-', lineWidth);
     cout << left << setw(60) << "Total Income" << right << setw(15) << fixed << setprecision(2) << CalcTotalIncome(income.salary, income.businessIncome, income.dividend) << endl;
     printLine('=', lineWidth);
-    cout << "Please press enter to continue..." <<endl;
-}
-
-//Ensure using provide valid amount for income source
-double getValidAmount() {
-    double amount;
-    while (true) {
-        cin >> amount;
-        if (cin.fail() || amount < 0) {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Please enter a valid positive number: ";
-        } else {
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            return amount;
-        }
-    }
-}
-
-//Handle user input of string instead of integers
-string getValidString(const string &prompt) {
-    cin.ignore();
-    string input;
-    while (true) {
-        cout << prompt;
-        getline(cin, input);
-
-        bool isValid = true;
-        for (char ch : input) {
-            if (isdigit(ch)) {
-                isValid = false;
-                break;
-            }
-        }
-
-        if (isValid && !input.empty()) {
-            for (char &ch : input) {
-                ch = toupper(ch);
-            }
-            return input;
-        } else {
-            cout << "Please enter a valid input containing characters only (no numbers): " << endl;
-        }
-    }
-}
-
-string capitalize(const string& letter) {
-    string result = letter; // Create a copy of the input string
-    for (char &ch : result) { // Iterate over each character in the string
-        ch = toupper(ch); // Convert each character to uppercase
-    }
-    return result; // Return the capitalized string
+    cout <<"\n\n"<< endl;
 }
 
 //Allow user to edit income information
 void editInformation(IncomeDetails &income, bool salarySelected, bool businessSelected, bool dividendSelected) {
-    bool editSalary = false;
-    bool editBusiness = false;
-    bool editDividend = false;
-
     while (true) {
         cout << "\nEdit Information:" << endl;
-        if (salarySelected) cout << "1. Edit Salary" << endl;
-        if (businessSelected) cout << "2. Edit Business" << endl;
-        if (dividendSelected) cout << "3. Edit Dividend" << endl;
-        cout << "4. Return to Main Menu" << endl;
+        if (salarySelected) cout << "A. Edit Salary" << endl;
+        if (businessSelected) cout << "B. Edit Business" << endl;
+        if (dividendSelected) cout << "C. Edit Dividend" << endl;
+        cout << "D. Return to Main Menu" << endl;
         cout << "Please choose an option: ";
 
-        int choice;
-        cin >> choice;
+        string editchoice;
+        cin >> editchoice;
 
-        if (cin.fail() || choice < 1 || choice > 4 ||
-            (choice == 1 && !salarySelected) || 
-            (choice == 2 && !businessSelected) || 
-            (choice == 3 && !dividendSelected)) {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Invalid option. Please try again." << endl;
-            continue;
+        // Check if the input is exactly one character
+        if (editchoice.length() != 1) {
+            cin.clear(); // Clear the error flag
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
+            cout << "Invalid input. Please enter only one character!" << endl;
+            continue; // Skip the rest of the loop and prompt again
         }
 
-        cin.ignore(); 
+        char choice = toupper(editchoice[0]); // Convert to uppercase for case-insensitive comparison
+
+        // Input validation for choice
+        if (choice != 'A' && choice != 'B' && choice != 'C' && choice != 'D' ||
+            (choice == 'A' && !salarySelected) || 
+            (choice == 'B' && !businessSelected) || 
+            (choice == 'C' && !dividendSelected)) {
+            cin.clear(); // Clear the error flag
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
+            cout << "Invalid option. Please try again." << endl;
+            continue; // Skip the rest of the loop and prompt again
+        }
+
+        cin.ignore(); // Ignore the newline character left by cin >> input
 
         switch (choice) {
-            case 1: {
+            case 'A': {
                 cout << "\nEnter your company name: ";
                 getline(cin, income.companyName);
                 income.position = getValidString("Enter your position (staff, management, director, etc...): ");
                 cout << "Enter your monthly salary amount in RM: ";
                 income.salary = getValidAmount();
-                double salary;
-                salary = (income.salary * 12);
-                editSalary = true;
+                cout << "Salary information updated successfully!" << endl;
                 break;
             }
-            case 2: {
+            case 'B': {
                 income.businessType = getValidString("\nEnter your business type and description (Goods & Services, etc...): ");
                 cout << "Enter your business income amount in RM: ";
                 income.businessIncome = getValidAmount();
-                editBusiness = true;
-
+                cout << "Business information updated successfully!" << endl;
                 break;
             }
-            case 3: {
+            case 'C': {
                 cout << "\nEnter your dividend amount in RM: ";
                 income.dividend = getValidAmount();
-                editDividend = true;
+                cout << "Dividend information updated successfully!" << endl;
                 break;
             }
-            case 4:
-                return;
+            case 'D':
+                cout << "Returning to the main menu..." << endl;
+                return; // Exit the function and return to the main menu
+            default:
+                cout << "Invalid option. Please try again." << endl;
         }
     }
 }
-
 //Allow user to select and input income information
 void incomeSelection(IncomeDetails &income) {
     bool salarySelected = false;
     bool businessSelected = false;
     bool dividendSelected = false;
-    bool editSelected = false;
 
     while (true) {
         cout << "\nIncome Selection:" << endl;
-        if (!salarySelected) cout << "1. Salary" << endl;
-        if(!businessSelected) cout << "2. Business" << endl;
-        if (!dividendSelected) cout << "3. Dividend" << endl;  
-        cout << "4. Calculate Incomes" << endl;
-        cout << "5. Edit Information" << endl;
-        cout << "Please choose an option (Type 1, 2, 3, 4, or 5): ";
+        if (!salarySelected) cout << "A. Salary" << endl;
+        if (!businessSelected) cout << "B. Business" << endl;
+        if (!dividendSelected) cout << "C. Dividend" << endl;
+        cout << "D. Calculate Incomes" << endl;
+        cout << "E. Edit Information" << endl;
+        cout << "Please choose an option (Type A, B, C, D, or E): ";
 
-        int choice;
-        cin >> choice;
+        string input;
+        cin >> input;
 
-        if (cin.fail() || choice < 1 || choice > 5 || 
-            (choice == 1 && salarySelected) || 
-            (choice == 2 && businessSelected) || 
-            (choice == 3 && dividendSelected)) {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Already selected this option. Please try again." << endl;
-            continue;
+        // Check if the input is exactly one character
+        if (input.length() != 1) {
+            cin.clear(); // Clear the error flag
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
+            cout << "Invalid input. Please enter only one character!" << endl;
+            continue; // Skip the rest of the loop and prompt again
         }
 
-        // Prevent choosing options 4 or 5 if no income data has been entered
-        if ((choice == 4 || choice == 5) && 
+        char choice = toupper(input[0]); // Convert to uppercase for case-insensitive comparison
+
+        // Input validation for choice
+        if (choice != 'A' && choice != 'B' && choice != 'C' && choice != 'D' && choice != 'E' ||
+            (choice == 'A' && salarySelected) || 
+            (choice == 'B' && businessSelected) || 
+            (choice == 'C' && dividendSelected)) {
+            cin.clear(); // Clear the error flag
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Discard invalid input
+            cout << "Invalid option or already selected. Please try again." << endl;
+            continue; // Skip the rest of the loop and prompt again
+        }
+
+        // Prevent choosing options D or E if no income data has been entered
+        if ((choice == 'D' || choice == 'E') && 
             !salarySelected && !businessSelected && !dividendSelected) {
             cout << "Please enter at least one income source before calculating or editing." << endl;
             continue;
         }
 
-        cin.ignore(); 
+        cin.ignore(); // Ignore the newline character left by cin >> input
 
         switch (choice) {
-            case 1: {
-                cout << "Enter your company name: " ;
+            case 'A': {
+                cout << "Enter your company name: ";
                 getline(cin, income.companyName);
                 income.position = getValidString("Enter your position (staff, management, director, etc...): ");
-                cout << "Enter your salary amount in RM: ";
+                cout << "Enter your monthly salary amount in RM: ";
                 income.salary = getValidAmount();
                 salarySelected = true;
+                cout << "Salary information added successfully!" << endl;
                 break;
             }
-            case 2: {
+            case 'B': {
                 income.businessType = getValidString("\nEnter your business type and description (Goods & Services, etc...): ");
                 cout << "Enter your business income amount for the financial year in RM: ";
                 income.businessIncome = getValidAmount();
                 businessSelected = true;
+                cout << "Business information added successfully!" << endl;
                 break;
             }
-            case 3: {
+            case 'C': {
                 cout << "\nEnter your dividend amount for the financial year in RM: ";
                 income.dividend = getValidAmount();
                 dividendSelected = true;
+                cout << "Dividend information added successfully!" << endl;
                 break;
             }
-            case 4: {
+            case 'D': {
                 printBill(income);
-                return;
+                return; // Exit the function after calculating incomes
             }
-            case 5: {
+            case 'E': {
                 editInformation(income, salarySelected, businessSelected, dividendSelected);
                 break;
             }
+            default:
+                cout << "Invalid option. Please try again." << endl;
         }
     }
 }
 
+//Getter function to use in other cpp files
 double getTotalIncome()
 {    
     CalcTotalIncome(income.annualSalary(income.salary), income.businessIncome, income.dividend);
     return CalcTotalIncome(income.annualSalary(income.salary), income.businessIncome, income.dividend);
 }
 
+//To be called in other cpp files to run functions in Income.cpp
 void MainIncome() {
     cout << "\n";
     printLine('=', 83);
@@ -259,6 +227,5 @@ void MainIncome() {
     cout << setw((83 - 50) / 2) << "Please choose your income sources and answer honestly... " << endl;
 
     incomeSelection(income);
-    cin.ignore();
 
 }

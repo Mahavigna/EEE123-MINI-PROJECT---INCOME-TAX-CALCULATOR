@@ -10,17 +10,6 @@
 using namespace std;
 
 
-//Function Declaration
-void printLine(char ch, int length);
-void MainIncome();
-double CalcTotalIncome(double , double, double);
-double getValidAmount();
-double getTotalIncome();
-string capitalize(const string& letter); 
-string getValidString(const string &prompt);
-
-
-
 //Struct for income selection
 class IncomeDetails {
     public:
@@ -38,6 +27,18 @@ class IncomeDetails {
 };
 
 extern IncomeDetails income;
+
+
+//Function Declaration
+void MainIncome();
+double CalcTotalIncome(double , double, double);
+double getTotalIncome();
+void printBill(IncomeDetails &income);
+void editInformation(IncomeDetails &income, bool salarySelected, bool businessSelected, bool dividendSelected);
+void incomeSelection(IncomeDetails &income);  
+
+
+
 
 
 

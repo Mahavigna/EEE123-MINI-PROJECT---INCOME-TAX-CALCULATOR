@@ -2,8 +2,7 @@
 #ifndef TAXRELIEF_HPP
 #define TAXRELIEF_HPP
 
-# include <string>
-
+//Libraries
 #include <iostream>
 #include <iomanip>
 #include <string>
@@ -13,16 +12,16 @@
 #include <fstream>
 using namespace std;
 
-// function declaration
+// Function Declaration
 bool askQuestion(const string& question);
-int getNumberInput(const string& prompt);
-void AskQuestionForSingle(int dexpenses[]);
-void AskQuestionForMarried(int dexpenses[], char maritalstatus);
-int calculateTotalDeductible(int dexpenses[], int size);
-void displayDeductibleTable(int dexpenses[]);
+double getNumberInput(const string& prompt);
+void AskQuestionForSingle(double dexpenses[]);
+void AskQuestionForMarried(double dexpenses[], char maritalstatus);
+double calculateTotalDeductible(double dexpenses[], int size);
+void displayDeductibleTable(double dexpenses[]);
 void selectionexpenses();
-void PrintTable(int dexpenses[]);
-int getTotalRelief(); 
+void PrintTable(double dexpenses[]);
+double getTotalRelief(); 
 
 
 #endif

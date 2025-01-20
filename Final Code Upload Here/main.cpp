@@ -30,12 +30,11 @@ Program Function:
 #include "Login_Register.hpp"
 #include "CalcTotalTax.hpp"
 #include "Getting_Details.hpp"
+#include "FormatText.hpp"
 
 
 int main(){
 
-    MainMenu();    
+    MainMenu();    //Start Loop of of Functions to execute program
     return 0;
-
-
 }

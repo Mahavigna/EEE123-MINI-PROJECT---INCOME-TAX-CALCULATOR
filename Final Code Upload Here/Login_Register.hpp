@@ -2,25 +2,24 @@
 #ifndef LOGIN_REGISTER_HPP
 #define LOGIN_REGISTER_HPP
 
-
+//Libraries
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <limits>
 #include "Income.hpp"
 #include "Getting_Details.hpp"
+using namespace std;
 
 
+//Function Declaration
 void registerUser();
 bool loginUser();
 void MainMenu();
-bool hasSpaces(const string& str);
 void WelcomeMsg(const string& name);
-string centerText(const string& text, int width);
 void mainloop();
 
 
-using namespace std;
 
 
 
