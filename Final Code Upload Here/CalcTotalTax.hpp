@@ -23,6 +23,5 @@ public:
 
 //Global Variables
 extern PayerOfTax user;
-string religion;
 
 #endif

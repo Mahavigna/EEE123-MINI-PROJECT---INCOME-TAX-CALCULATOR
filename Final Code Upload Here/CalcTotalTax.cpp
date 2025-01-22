@@ -131,11 +131,9 @@ double Rebate() {
     if (user.religion == 'I') {
         cout << "\nb) Please enter your Zakat/Fitrah payment for this year: RM ";
         user.zakat = getValidAmount();
-        religion = "Islam";
     } else {
         cout << "\nb) Not Eligible for Zakat/Fitrah tax rebate.\n";
         user.zakat = 0;
-        religion = "Other";
     }
 
     // Loop for pilgrimage input validation
