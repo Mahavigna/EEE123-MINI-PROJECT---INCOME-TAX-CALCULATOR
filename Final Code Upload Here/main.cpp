@@ -71,7 +71,7 @@ char calculateAgain;
     printDetailsToFile(TaxPayer.name); // Prints details of user or Tax Payer to a text file for easy display
 
         // Ask if the user wants to calculate again
-        cout << "\nWould you like to calculate again? (Yes = Y | Press Ctrl and C keys to exit...): ";
+        cout << "\nWould you like to calculate again? (Yes = Y | Enter any key to exit...): ";
         cin >> calculateAgain;
         calculateAgain = toupper(calculateAgain);
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
