@@ -27,9 +27,6 @@ bool hasSpaces(const string& str);
 string getCurrentDate();
 double getNumberInput(const string& prompt);
 bool askQuestion(const string& question);
-int getIntegerInput(const string& prompt);
-char getSingleCharInput(const string& prompt, const string& validChars);
-
 
 
 

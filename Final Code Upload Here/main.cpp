@@ -1,4 +1,6 @@
-/*
+/*EEE123-COMPUTER PROGRAMMING FOR ENGINEERS (MINI PROJECT)
+Title: Malaysian Individual Income Tax Calculator
+Group: 
 1)  Programmer     : OOI YEEZON
     USM Email      : yeezon@student.usm.my
     GitHub Username: yeezon1
@@ -23,18 +25,59 @@ Program Function:
 
 */
 
-
-#include "main.hpp"
+//Header files containing relevent functions and libraries
 #include "Income.hpp"
 #include "TaxRelief.hpp"
-#include "Login_Register.hpp"
 #include "CalcTotalTax.hpp"
 #include "Getting_Details.hpp"
 #include "FormatText.hpp"
+#include "OpeningAndClosing.hpp"
 
+//Libraries
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <cctype>
+#include <limits>
+using namespace std;
+
+//Function Declaration
+void TaxpayerDetails(); 
+void selectionexpenses();
+void displayFinalTax();
+void printDetailsToFile(const string& filename); 
+void WelcomeMsg(); 
+void DisplayThankYou();
+void UserNameWelcome(const string& name);
 
 int main(){
 
-    MainMenu();    //Start Loop of of Functions to execute program
+    WelcomeMsg(); //Welcomes user to Program
+
+char calculateAgain;
+
+
+    do{
+    TaxpayerDetails();     // Get user details 
+    
+    UserNameWelcome(TaxPayer.name); // Welcomes User by name
+
+    MainIncome();        // Calculates total income of user from sources specified by user (Income.cpp)
+
+    selectionexpenses(); // Calculates User tax relief based on Yes or No questions (TaxRelief.cpp)
+
+    displayFinalTax(); // Calculate Total Tax after rebates
+
+    printDetailsToFile(TaxPayer.name); // Prints details of user or Tax Payer to a text file for easy display
+
+        // Ask if the user wants to calculate again
+        cout << "\nWould you like to calculate again? (Yes = Y | Press Ctrl and C keys to exit...): ";
+        cin >> calculateAgain;
+        calculateAgain = toupper(calculateAgain);
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    } while (calculateAgain == 'Y');
+
+    DisplayThankYou();
     return 0;
 }

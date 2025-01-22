@@ -42,7 +42,7 @@ void GettingDetails(User& TaxPayer) {
     cout  << setw((83 - 30) / 2) << " " << "<Part 1. Personal Details>\n";
     printLine('=', 83);
     cout << "This is only for statistical purposes.\n";
-    cout << "Data can be changed after finishing filling the personal details, allowing the user to update their information if necessary\n";
+    cout << "Data can be changed after finishing filling the personal detail.\n";
 
     // Getting User's Name
     TaxPayer.name = getValidString("a) Full Name: ");
@@ -210,7 +210,6 @@ void PrintDetails() {
     cout << "TIN:                " << TaxPayer.TIN << endl;
     printLine('=', 83);
 }
-
 
 //To be called in other cpp files to run functions in Getting_Details.cpp
 void TaxpayerDetails() {

@@ -9,14 +9,11 @@ Program Function: Prints User / Tax Payers data from all the sections into one r
 */
 
 //Header Files containing relevant functions and libraries
-#include "main.hpp"
 #include "Income.hpp"
 #include "TaxRelief.hpp"
-#include "Login_Register.hpp"
 #include "CalcTotalTax.hpp"
 #include "Getting_Details.hpp"
 #include "FormatText.hpp"
-
 
 
 
@@ -66,7 +63,7 @@ void printDetailsToFile(const string& filename) {
     outputFile << left << setw(60) << "Total Income" << right << setw(15) << fixed << setprecision(2) << CalcTotalIncome(income.salary, income.businessIncome, income.dividend) << endl;
     PrintFileLine('-', tableWidth, outputFile);
 
-    // Insert Relief Summary
+    // Reads Relief_Summary.txt file and prints content to this file 
     ifstream reliefFile("Relief_Summary.txt");
     if (reliefFile.is_open()) {
         string line;
