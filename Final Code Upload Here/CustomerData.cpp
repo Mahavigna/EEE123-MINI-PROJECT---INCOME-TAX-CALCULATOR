@@ -36,7 +36,7 @@ void printDetailsToFile(const string& filename) {
     outputFile << "Phone No.:          " << TaxPayer.phoneNo << endl;
     outputFile << "Email:              " << TaxPayer.email << endl;
     outputFile << "TIN:                " << TaxPayer.TIN << endl;
-    outputFile << "Religion:           " << user.religion << endl;
+    outputFile << "Religion:           " << religion << endl;
     PrintFileLine('=', tableWidth, outputFile);
 
     // Tax Payer Income sources (Income.cpp)

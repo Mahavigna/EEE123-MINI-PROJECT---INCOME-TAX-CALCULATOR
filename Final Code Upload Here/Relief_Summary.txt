@@ -5,8 +5,7 @@
 +----+-------------------------------------------------------------------+---------------------+
 | No | Category                                                          | Deductible Amount   |
 +----+-------------------------------------------------------------------+---------------------+
-|  2 | Expenses for parents (medical, dental, etc.)                      | RM             8000 |
-| 23 | Electric vehicle charging facilities                              | RM             2500 |
+|  1 | Individual and dependent relatives                                | RM             2345 |
 +----+-------------------------------------------------------------------+---------------------+
-       Total deductible amount for all categories                          RM            10500
+       Total deductible amount for all categories                          RM             2345
 +----+-------------------------------------------------------------------+---------------------+

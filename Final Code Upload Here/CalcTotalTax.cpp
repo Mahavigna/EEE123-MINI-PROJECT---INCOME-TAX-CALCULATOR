@@ -21,7 +21,6 @@ public:
 } Travel;
 
 PayerOfTax user;
-string religion;
 // Function to calculate pilgrimage rebate
 double calculatePilgrimageRebate() {
     double rebate = 0.0;

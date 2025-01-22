@@ -21,6 +21,8 @@ public:
     double finaltax;   // Users final Tax Payment
 };
 
+//Global Variables
 extern PayerOfTax user;
+string religion;
 
 #endif
