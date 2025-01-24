@@ -3,6 +3,11 @@
 #define CALCTOTALTAX_HPP
 
 
+//Libraries
+#include <iostream>
+#include <iomanip>
+#include <string>
+
 //Function Declaration
 void displayFinalTax();
 void printDetailsToFile(const string& filename);

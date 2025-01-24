@@ -14,13 +14,17 @@ Program Purpose: Allow user to choose expenses by category and whether applicabl
                  Simplify calculation of relief to simple questions.
 */
 
-//Header Files containing relevant functions and libraries
+// Header Files containing relevant functions and libraries
 #include "TaxRelief.hpp"
 #include "FormatText.hpp"
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+#include <string>
+#include <algorithm>
+using namespace std;
 
-
-double total_deductible;
-
+double total_deductible = 0.0; // Initialize global variable to store total deductible
 
 // Maximum deductions for each expense category
 const double MaxDeductions[23] = {
@@ -75,6 +79,17 @@ const string categories[23] = {
     "SOCSO contributions",
     "Electric vehicle charging facilities"
 };
+
+// Function prototypes
+void selectionexpenses();
+void AskQuestionForSingle(double dexpenses[]);
+void AskQuestionForMarried(double dexpenses[], char maritalstatus);
+double calculateTotalDeductible(double dexpenses[], int size);
+void displayDeductibleTable(double dexpenses[]);
+void PrintTable(double dexpenses[]);
+double getTotalRelief();
+bool askQuestion(const string& question);
+double getNumberInput(const string& prompt);
 
 // Function to handle the selection of expenses
 void selectionexpenses()
@@ -222,8 +237,8 @@ double calculateTotalDeductible(double dexpenses[], int size)
 // Function to display the deductible amounts in a table
 void displayDeductibleTable(double dexpenses[])
 {
-    // Calculate and display the total deductible
-    double total_deductible = calculateTotalDeductible(dexpenses, 23);
+    // Calculate and update the total deductible
+    total_deductible = calculateTotalDeductible(dexpenses, 23);
 
     cout << "\n================================================================================================\n";
     cout << "                                  <Deductible Amounts>\n";
@@ -248,15 +263,15 @@ void displayDeductibleTable(double dexpenses[])
     PrintTable(dexpenses);
 }
 
-void PrintTable(double dexpenses[]){
-
+void PrintTable(double dexpenses[])
+{
     ofstream outFile("Relief_Summary.txt");
     if (!outFile.is_open()) {
         cerr << "\nError: Unable to open file for writing!" << endl;
         return;
     }    
     // Calculate and display the total deductible
-    double total_deductible = calculateTotalDeductible(dexpenses, 23);
+    total_deductible = calculateTotalDeductible(dexpenses, 23);
 
     outFile << "\n================================================================================================\n";
     outFile << "                                     DEDUCTIBLE AMOUNTS\n";
@@ -279,13 +294,10 @@ void PrintTable(double dexpenses[]){
     outFile << "+----+-------------------------------------------------------------------+---------------------+\n";
 
     cout << "\nTax relief summary written to Relief_Summary.txt successfully!" << endl;
-
 }
 
-
-//Gets total reliefs to be used in tax calculation
+// Gets total reliefs to be used in tax calculation
 double getTotalRelief()
 {
-    // Calculate and return the total relief
-    return total_deductible;
+    return total_deductible; // Return the updated global variable
 }
