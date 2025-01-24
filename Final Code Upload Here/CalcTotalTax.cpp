@@ -320,6 +320,8 @@ void displayFinalTax() {
     // Display the final tax payable in a table format
     cout << "\n";
     printLine('=', 83); // Print a separator line
+    cout << centerText(toUpperCase( "TAX REBATE AND FINAL TAX"), 83) <<endl;
+    printLine('=', 83); // Print a separator line
     cout << setw(50) << left << "Tax Details" << setw(30) << right << "Amount (RM)" << endl;
     printLine('-', 83); // Print a separator line
 

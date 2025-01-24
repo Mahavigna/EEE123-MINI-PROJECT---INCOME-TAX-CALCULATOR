@@ -1,6 +1,6 @@
 /*EEE123-COMPUTER PROGRAMMING FOR ENGINEERS (MINI PROJECT)
 Title: Malaysian Individual Income Tax Calculator
-Group: 
+Group: 8
 1)  Programmer     : OOI YEEZON
     USM Email      : yeezon@student.usm.my
     GitHub Username: yeezon1
@@ -22,10 +22,14 @@ Group:
     Matric No.      : 23301624
 
 Program Function: 
+Provides an easy and user-friendly method filling Individual Assessment Income Tax for Malaysian Tax Payers. 
+Program allows users to categorize their sources of income, accurately input their Tax Reliefs based on simple yes or no questions, and give tax rebates claimable by asking simple questions to ensure ease of use. 
+Prints the output to a text file for ease of use and reference for users tax filing.
+Reduces stress of users navigating the tax filing process.
 
 */
 
-//Header files containing relevent functions and libraries
+//Header files containing relevant functions and libraries
 #include "Income.hpp"
 #include "TaxRelief.hpp"
 #include "CalcTotalTax.hpp"
@@ -58,17 +62,17 @@ char calculateAgain;
 
 
     do{
-    TaxpayerDetails();     // Get user details 
+    TaxpayerDetails();     // Get user details (Getting_Details.cpp) 
     
-    UserNameWelcome(TaxPayer.name); // Welcomes User by name
+    UserNameWelcome(TaxPayer.name); // Welcomes User by name (OpeningAndClosing.cpp)
 
     MainIncome();        // Calculates total income of user from sources specified by user (Income.cpp)
 
     selectionexpenses(); // Calculates User tax relief based on Yes or No questions (TaxRelief.cpp)
 
-    displayFinalTax(); // Calculate Total Tax after rebates
+    displayFinalTax(); // Calculate Total Tax after rebates (CalcTotalTax.cpp)
 
-    printDetailsToFile(TaxPayer.name); // Prints details of user or Tax Payer to a text file for easy display
+    printDetailsToFile(TaxPayer.name); // Prints details of user or Tax Payer to a text file for easy display (CustomerData.cpp)
 
         // Ask if the user wants to calculate again
         cout << "\nWould you like to calculate again? (Yes = Y | Enter any key to exit...): ";
@@ -78,6 +82,6 @@ char calculateAgain;
 
     } while (calculateAgain == 'Y');
 
-    DisplayThankYou();
+    DisplayThankYou();  //Displays Thank You Message read from file 'ThankYou.txt'(OpeningAndClosing.cpp)
     return 0;
 }

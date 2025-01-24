@@ -19,7 +19,11 @@ Program Function: Prints User / Tax Payers data from all the sections into one r
 
 // Function to print details to a file
 void printDetailsToFile(const string& filename) {
-    ofstream outputFile(TaxPayer.name + ".txt"); // Open the file for writing
+    //Sanitized filename to replace '/' with '_'
+    string sanitizedFilename = TaxPayer.name;
+    replace(sanitizedFilename.begin(), sanitizedFilename.end(), '/', '_');
+
+    ofstream outputFile(sanitizedFilename + ".txt"); // Open the file for writing
 
     if (!outputFile.is_open()) {
         cerr << "Error: Unable to open file for writing.\n";
@@ -87,5 +91,5 @@ void printDetailsToFile(const string& filename) {
     PrintFileLine('=', tableWidth, outputFile);
 
     outputFile.close(); // Close the file
-    cout << "\nTax calculation summary written to " << filename << ".txt successfully!" << endl;
+    cout << "\nTax calculation summary written to " << sanitizedFilename << ".txt successfully!" << endl;
 }
