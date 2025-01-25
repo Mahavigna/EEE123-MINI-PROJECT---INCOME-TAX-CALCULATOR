@@ -123,6 +123,7 @@ void editInformation(IncomeDetails &income, bool salarySelected, bool businessSe
         }
     }
 }
+
 //Allow user to select and input income information
 void incomeSelection(IncomeDetails &income) {
     bool salarySelected = false;

@@ -16,8 +16,6 @@ struct User {
     string TIN;
     string phoneNo;
     string email;
-    string job;
-    string company;
 };
 
 extern User TaxPayer;

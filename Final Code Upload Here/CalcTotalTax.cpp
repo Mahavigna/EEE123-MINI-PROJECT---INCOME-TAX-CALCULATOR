@@ -81,6 +81,14 @@ double calculatePilgrimageRebate() {
     return rebate;
 }
 
+//Calculate Chargeble Income
+double ChargebleIncome(){
+    double TotalIncome = getTotalIncome();
+    double TotalReliefs = getTotalRelief();
+    double ChargeableIncome = TotalIncome - TotalReliefs;
+    return ChargeableIncome;
+}
+
 // Function to calculate total rebates (zakat + pilgrimage)
 double Rebate() {
     cout << "\n";
@@ -88,16 +96,11 @@ double Rebate() {
     cout << setw((83 - 43) / 2) << " " << "< Part 4. Calculation of Total Tax >" << endl;
     printLine('=', 83);
 
-    // Calculate total income and reliefs
-    double TotalIncome = getTotalIncome();
-    double TotalReliefs = getTotalRelief();
-    double ChargeableIncome = TotalIncome - TotalReliefs;
-
-    cout << "Your Chargeable income is: RM " << ChargeableIncome << endl;
+    cout << "Your Chargeable income is: RM " << ChargebleIncome() << endl;
 
     // RM 400 rebate for chargeable income below RM 35,000
     double rebate = 0.0;
-    if (ChargeableIncome < 35000 && ChargeableIncome >= 0) {
+    if (ChargebleIncome() < 35000 && ChargebleIncome() >= 0) {
         cout << "You are entitled to a RM 400 tax rebate" << endl;
         rebate = 400;
     }
@@ -298,14 +301,9 @@ double calculateTax(double chargeableIncome) {
 
 //Displays Final Tax Rebate and Payable Tax amount 
 void displayFinalTax() {
-    // Display the final tax payablevoid displayFinalTax() {
-    // Calculate total income and reliefs
-    double TotalIncome = getTotalIncome();
-    double TotalReliefs = getTotalRelief();
-    double ChargeableIncome = TotalIncome - TotalReliefs;
-
+    
     // Calculate tax
-    double tax = calculateTax(ChargeableIncome);
+    double tax = calculateTax(ChargebleIncome());
 
     // Calculate rebates (zakat + pilgrimage)
     double rebate = Rebate();

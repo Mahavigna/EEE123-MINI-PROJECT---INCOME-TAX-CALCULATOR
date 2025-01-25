@@ -12,5 +12,5 @@ using namespace std;
 
 //Function Declaration
 void printDetailsToFile(const string& filename);
-
+double ChargebleIncome();
 #endif
