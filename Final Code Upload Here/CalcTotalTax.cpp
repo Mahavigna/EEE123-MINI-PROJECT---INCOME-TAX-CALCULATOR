@@ -5,7 +5,7 @@
     Matric No.      : 23301624
 */
 
-//Header Files containing relevant functions and libraries
+// Header Files containing relevant functions and libraries
 #include "Income.hpp"
 #include "TaxRelief.hpp"
 #include "CalcTotalTax.hpp"
@@ -21,6 +21,7 @@ public:
 } Travel;
 
 PayerOfTax user;
+
 // Function to calculate pilgrimage rebate
 double calculatePilgrimageRebate() {
     double rebate = 0.0;
@@ -81,11 +82,14 @@ double calculatePilgrimageRebate() {
     return rebate;
 }
 
-//Calculate Chargeble Income
-double ChargebleIncome(){
+// Calculate Chargeable Income
+double ChargebleIncome() {
     double TotalIncome = getTotalIncome();
     double TotalReliefs = getTotalRelief();
     double ChargeableIncome = TotalIncome - TotalReliefs;
+    if(ChargeableIncome < 0){
+        return ChargeableIncome = 0;
+    }
     return ChargeableIncome;
 }
 
@@ -165,46 +169,13 @@ double Rebate() {
     }
 
     if (user.pilgrimage == 'Y') {
-    // Loop for pilgrimage frequency input validation
-    while (true) {
-        cout << "\nd) How many times in your life? :\n";
-        cout << "   A) Less than 2 times\n";
-        cout << "   B) Exactly 2 times\n";
-        cout << "   C) More than 2 times\n";
-        cout << "   Enter your choice (A, B, or C): ";
-
-        // Read the entire input as a string
-        string input;
-        getline(cin, input);
-
-        // Check if the input is exactly one character
-        if (input.length() == 1) {
-            char choice = toupper(input[0]); // Convert to uppercase for case-insensitive comparison
-
-            // Validate the choice
-            if (choice == 'A' || choice == 'B' || choice == 'C') {
-                if (choice == 'A') {
-                    user.NoTime = 1; // Less than 2 times
-                } else if (choice == 'B') {
-                    user.NoTime = 2; // Exactly 2 times
-                } else if (choice == 'C') {
-                    user.NoTime = 3; // More than 2 times
-                }
-                break; // Exit the loop if the input is valid
-            } else {
-                // Handle invalid character input
-                cout << "Invalid input! Please enter A, B, or C.\n";
-            }
-        } else {
-            // Handle invalid input (more than one character)
-            cout << "Invalid input. Please enter only one character (A, B, or C).\n";
-        }
-    }
-
-    if (user.NoTime <= 2) {
-        // Loop for travelled input validation
+        // Loop for pilgrimage frequency input validation
         while (true) {
-            cout << "\ne) Did you make a pilgrimage this year? (Y / N): ";
+            cout << "\nd) How many times in your life? :\n";
+            cout << "   A) Less than 2 times\n";
+            cout << "   B) Exactly 2 times\n";
+            cout << "   C) More than 2 times\n";
+            cout << "   Enter your choice (A, B, or C): ";
 
             // Read the entire input as a string
             string input;
@@ -212,25 +183,33 @@ double Rebate() {
 
             // Check if the input is exactly one character
             if (input.length() == 1) {
-                Travel.travelled = toupper(input[0]); // Convert to uppercase for case-insensitive comparison
+                char choice = toupper(input[0]); // Convert to uppercase for case-insensitive comparison
 
                 // Validate the choice
-                if (Travel.travelled == 'Y' || Travel.travelled == 'N') {
+                if (choice == 'A' || choice == 'B' || choice == 'C') {
+                    if (choice == 'A') {
+                        user.NoTime = 1; // Less than 2 times
+                    } else if (choice == 'B') {
+                        user.NoTime = 2; // Exactly 2 times
+                    } else if (choice == 'C') {
+                        user.NoTime = 3; // More than 2 times
+                    }
                     break; // Exit the loop if the input is valid
                 } else {
                     // Handle invalid character input
-                    cout << "Invalid input! Please enter 'Y' for Yes or 'N' for No.\n";
+                    cout << "Invalid input! Please enter A, B, or C.\n";
                 }
             } else {
                 // Handle invalid input (more than one character)
-                cout << "Invalid input. Please enter only one character (Y or N).\n";
+                cout << "Invalid input. Please enter only one character (A, B, or C).\n";
             }
         }
 
-        if (Travel.travelled == 'Y') {
-            // Loop for destination input validation
+        // Check if user is eligible for pilgrimage rebate
+        if (user.NoTime <= 2) {
+            // Loop for travelled input validation
             while (true) {
-                cout << "\nf) Destination (A = ASEAN Region | O = Outside ASEAN): ";
+                cout << "\ne) Did you make a pilgrimage this year? (Y / N): ";
 
                 // Read the entire input as a string
                 string input;
@@ -238,25 +217,55 @@ double Rebate() {
 
                 // Check if the input is exactly one character
                 if (input.length() == 1) {
-                    Travel.destination = toupper(input[0]); // Convert to uppercase for case-insensitive comparison
+                    Travel.travelled = toupper(input[0]); // Convert to uppercase for case-insensitive comparison
 
                     // Validate the choice
-                    if (Travel.destination == 'A' || Travel.destination == 'O') {
+                    if (Travel.travelled == 'Y' || Travel.travelled == 'N') {
                         break; // Exit the loop if the input is valid
                     } else {
                         // Handle invalid character input
-                        cout << "Invalid input! Please enter 'A' for ASEAN or 'O' for Outside ASEAN.\n";
+                        cout << "Invalid input! Please enter 'Y' for Yes or 'N' for No.\n";
                     }
                 } else {
                     // Handle invalid input (more than one character)
-                    cout << "Invalid input. Please enter only one character (A or O).\n";
+                    cout << "Invalid input. Please enter only one character (Y or N).\n";
                 }
             }
 
-            rebate += calculatePilgrimageRebate();
+            if (Travel.travelled == 'Y') {
+                // Loop for destination input validation
+                while (true) {
+                    cout << "\nf) Destination (A = ASEAN Region | O = Outside ASEAN): ";
+
+                    // Read the entire input as a string
+                    string input;
+                    getline(cin, input);
+
+                    // Check if the input is exactly one character
+                    if (input.length() == 1) {
+                        Travel.destination = toupper(input[0]); // Convert to uppercase for case-insensitive comparison
+
+                        // Validate the choice
+                        if (Travel.destination == 'A' || Travel.destination == 'O') {
+                            break; // Exit the loop if the input is valid
+                        } else {
+                            // Handle invalid character input
+                            cout << "Invalid input! Please enter 'A' for ASEAN or 'O' for Outside ASEAN.\n";
+                        }
+                    } else {
+                        // Handle invalid input (more than one character)
+                        cout << "Invalid input. Please enter only one character (A or O).\n";
+                    }
+                }
+
+                rebate += calculatePilgrimageRebate();
             }
+        } else {
+            // User has performed pilgrimage more than 2 times (user.NoTime = 3)
+            cout << "\nYou are not eligible to claim a pilgrimage rebate as you have performed it more than 2 times.\n";
         }
     }
+
     return (rebate + user.zakat);
 }
 
@@ -299,9 +308,8 @@ double calculateTax(double chargeableIncome) {
     return user.tax;
 }
 
-//Displays Final Tax Rebate and Payable Tax amount 
+// Displays Final Tax Rebate and Payable Tax amount
 void displayFinalTax() {
-    
     // Calculate tax
     double tax = calculateTax(ChargebleIncome());
 
@@ -318,7 +326,7 @@ void displayFinalTax() {
     // Display the final tax payable in a table format
     cout << "\n";
     printLine('=', 83); // Print a separator line
-    cout << centerText(toUpperCase( "TAX REBATE AND FINAL TAX"), 83) <<endl;
+    cout << centerText(toUpperCase("TAX REBATE AND FINAL TAX"), 83) << endl;
     printLine('=', 83); // Print a separator line
     cout << setw(50) << left << "Tax Details" << setw(30) << right << "Amount (RM)" << endl;
     printLine('-', 83); // Print a separator line
@@ -329,6 +337,4 @@ void displayFinalTax() {
     cout << setw(50) << left << "Final Tax Payable" << setw(30) << right << user.finaltax << endl;
 
     printLine('=', 83); // Print a separator line
-
 }
-
