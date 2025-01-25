@@ -4,7 +4,9 @@
     USM email       : mahavigna@student.usm.my
     Github Username : Mahavigna
     Matric No.      : 23301624
+
 Program Function: File contains all text formatting used in the program
+
 */
 
 

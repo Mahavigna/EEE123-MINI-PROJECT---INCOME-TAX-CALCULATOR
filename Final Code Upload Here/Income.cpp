@@ -9,6 +9,8 @@
     Github Username : Mahavigna
     Matric No.      : 23301624
 
+Both programmers worked equally on all the functions.
+
 Program Function: Gather and calculate the sources of income of the Tax Payer.
                   Function list the income and description of income sources for user ot use during tax filling.
 */

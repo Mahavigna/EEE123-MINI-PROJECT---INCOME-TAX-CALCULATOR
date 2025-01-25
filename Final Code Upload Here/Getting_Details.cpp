@@ -9,6 +9,8 @@
     Github Username : Mahavigna
     Matric No.      : 23301624
 
+Both programmers worked equally on all the functions.
+
 Program Function: Get Tax Payer details to be printed in customer receipt for tax failing
 */
 

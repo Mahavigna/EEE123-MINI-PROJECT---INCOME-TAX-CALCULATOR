@@ -6,6 +6,7 @@
     Matric No.      : 23301624
 
 Program Function: Prints User / Tax Payers data from all the sections into one receipt for easy filling and reference.
+
 */
 
 //Header Files containing relevant functions and libraries

@@ -4,6 +4,8 @@
     Github Username : Mahavigna
     Matric No.      : 23301624
 
+Program Function: Contains functions to display welcome page of program, greeting user by name, and displaying a thank you message on the terminal from ThankYou.txt file
+
  */
 
 

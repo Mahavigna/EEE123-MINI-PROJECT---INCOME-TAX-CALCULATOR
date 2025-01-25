@@ -21,6 +21,8 @@ Group: 8
     Github Username : Mahavigna
     Matric No.      : 23301624
 
+Both programmers worked equally on all the functions.
+
 Program Function: 
 Provides an easy and user-friendly method filling Individual Assessment Income Tax for Malaysian Tax Payers. 
 Program allows users to categorize their sources of income, accurately input their Tax Reliefs based on simple yes or no questions, and give tax rebates claimable by asking simple questions to ensure ease of use. 

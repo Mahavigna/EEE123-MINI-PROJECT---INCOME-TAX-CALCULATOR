@@ -9,6 +9,8 @@
     Github Username : Mahavigna
     Matric No.      : 23301624
 
+Both programmers worked equally on all the functions.
+
 Program Purpose: Allow user to choose expenses by category and whether applicable. 
                  List the expenses for purpose of tax relief. 
                  Simplify calculation of relief to simple questions.
