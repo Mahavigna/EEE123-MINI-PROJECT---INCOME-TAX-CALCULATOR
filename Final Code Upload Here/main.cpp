@@ -49,6 +49,7 @@ using namespace std;
 void TaxpayerDetails(); 
 void selectionexpenses();
 void displayFinalTax();
+void incomeSelection(IncomeDetails &income); 
 void printDetailsToFile(const string& filename); 
 void WelcomeMsg(); 
 void DisplayThankYou();
@@ -66,7 +67,7 @@ char calculateAgain;
     
     UserNameWelcome(TaxPayer.name); // Welcomes User by name (OpeningAndClosing.cpp)
 
-    MainIncome();        // Calculates total income of user from sources specified by user (Income.cpp)
+    incomeSelection(income);        // Calculates total income of user from sources specified by user (Income.cpp)
 
     selectionexpenses(); // Calculates User tax relief based on Yes or No questions (TaxRelief.cpp)
 

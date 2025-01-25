@@ -126,6 +126,11 @@ void editInformation(IncomeDetails &income, bool salarySelected, bool businessSe
 
 //Allow user to select and input income information
 void incomeSelection(IncomeDetails &income) {
+    cout << "\n";
+    printLine('=', 83);
+    cout << setw((83 - 47) / 2) << " " << "< Part 2. Income Selection for Tax Calculation >" << endl;
+    printLine('=', 83);
+    cout << setw((83 - 50) / 2) << "Please choose your income sources and answer honestly... " << endl;
     bool salarySelected = false;
     bool businessSelected = false;
     bool dividendSelected = false;
@@ -219,14 +224,3 @@ double getTotalIncome()
     return CalcTotalIncome(income.annualSalary(income.salary), income.businessIncome, income.dividend);
 }
 
-//To be called in other cpp files to run functions in Income.cpp
-void MainIncome() {
-    cout << "\n";
-    printLine('=', 83);
-    cout << setw((83 - 47) / 2) << " " << "< Part 2. Income Selection for Tax Calculation >" << endl;
-    printLine('=', 83);
-    cout << setw((83 - 50) / 2) << "Please choose your income sources and answer honestly... " << endl;
-
-    incomeSelection(income);
-
-}

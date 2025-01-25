@@ -30,7 +30,6 @@ extern IncomeDetails income;
 
 
 //Function Declaration
-void MainIncome();
 double CalcTotalIncome(double , double, double);
 double getTotalIncome();
 void printBill(IncomeDetails &income);
